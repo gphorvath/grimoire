@@ -47,15 +47,15 @@ func (m *Manager) Load(name string) (*Prompt, error) {
 		return nil, fmt.Errorf("failed to read prompt file: %w", err)
 	}
 
-	// Split frontmatter and content
+	// Split front matter and content
 	parts := strings.Split(string(content), "---\n")
 	if len(parts) < 3 {
-		return nil, fmt.Errorf("invalid prompt format: missing frontmatter")
+		return nil, fmt.Errorf("invalid prompt format: missing front matter")
 	}
 
 	var metadata Metadata
 	if err := yaml.Unmarshal([]byte(parts[1]), &metadata); err != nil {
-		return nil, fmt.Errorf("failed to parse frontmatter: %w", err)
+		return nil, fmt.Errorf("failed to parse front matter: %w", err)
 	}
 
 	fileInfo, err := os.Stat(path)
