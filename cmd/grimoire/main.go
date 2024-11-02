@@ -16,6 +16,7 @@ import (
 var (
 	clipSvc   *clipboard.Service
 	promptMgr *prompt.Manager
+	version   = "dev" // This will be set during build
 )
 
 func handleError(err error, message string) {
@@ -30,6 +31,14 @@ var rootCmd = &cobra.Command{
 	Short: "Grimoire - A CLI tool for managing and using GenAI prompts",
 	Long: `Grimoire helps you manage and quickly access a collection of GenAI prompts.
 Copy prompts directly to your clipboard with simple commands.`,
+}
+
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "Print the version number",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Printf("grimoire version %s\n", version)
+	},
 }
 
 var listCmd = &cobra.Command{
@@ -85,6 +94,7 @@ func init() {
 	}
 
 	clipSvc = clipboard.New()
+	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(listCmd)
 	rootCmd.AddCommand(copyCmd)
 	rootCmd.AddCommand(pasteCmd)
