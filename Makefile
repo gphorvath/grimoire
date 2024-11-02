@@ -2,9 +2,8 @@
 BINARY_NAME=grimoire
 
 # Go related variables
-GOBASE=$(shell pwd)
-GOBIN=$(GOBASE)/bin
-GOFILES=$(wildcard *.go)
+GO_BASE=$(shell pwd)
+GO_BIN=$(GO_BASE)/bin
 LOCAL_DIR=~/.grimoire
 
 # Make is verbose in Linux. Make it silent.
@@ -15,7 +14,7 @@ MAKEFLAGS += --silent
 
 build: ## Build the binary
 	@echo "Building..."
-	go build -o $(GOBIN)/$(BINARY_NAME) ./cmd/grimoire
+	go build -o $(GO_BIN)/$(BINARY_NAME) ./cmd/grimoire
 
 install: ## Copy prompts directory to ~/.grimoire/
 	@echo "Installing..."
@@ -25,7 +24,7 @@ install: ## Copy prompts directory to ~/.grimoire/
 clean: ## Clean build files
 	@echo "Cleaning..."
 	go clean
-	rm -rf $(GOBIN)
+	rm -rf $(GO_BIN)
 	rm -rf $(LOCAL_DIR)
 
 
