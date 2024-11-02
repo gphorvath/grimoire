@@ -17,13 +17,7 @@ builds:
       - -s -w -X main.version={{.Version}}
 
 brews:
-  - repository:
-      owner: gphorvath
-      name: grimoire
-      token: "{{ .Env.GITHUB_TOKEN }}"
-    commit_author:
-      name: goreleaserbot
-      email: bot@goreleaser.com
+  - name: grimoire
     homepage: https://github.com/gphorvath/grimoire
     description: A prompt engineer's Grimoire to assist with getting the best results from Generative AI prompts
     license: MIT
@@ -31,6 +25,18 @@ brews:
       system "#{bin}/grimoire --version"
     install: |
       bin.install "grimoire"
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+    repository:
+      owner: gphorvath
+      name: grimoire
+      branch: main
+      pull_request:
+        enabled: true
+        base:
+          branch: main
 
 nfpms:
   - file_name_template: '{{ .ProjectName }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
