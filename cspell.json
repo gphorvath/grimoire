@@ -4,10 +4,11 @@
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
-        "trufflehog",
-        "trufflesecurity",
+        "commitlint",
+        "Grimoire",
         "lycheeignore",
-        "commitlint"
+        "trufflehog",
+        "trufflesecurity"
     ],
     "ignoreWords": [],
     "import": []
