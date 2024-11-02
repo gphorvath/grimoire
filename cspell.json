@@ -12,6 +12,8 @@
         "coverprofile",
         "dylib",
         "goarch",
+        "goreleaser",
+        "goreleaserbot",
         "gphorvath",
         "Grimoire",
         "Horvath",
