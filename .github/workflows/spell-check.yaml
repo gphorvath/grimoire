@@ -1,0 +1,22 @@
+name: 'Check Spelling'
+on:
+    pull_request:
+        branches:
+        - main
+    workflow_dispatch: # allow manual trigger
+
+
+jobs:
+  spellcheck:
+    name: 'Check Spelling'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+        - name: Checkout
+          uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+        
+        - name: Spell Check
+          id: cspell
+          uses: streetsidesoftware/cspell-action@934c74da3775ac844ec89503f666f67efb427fed # v6.8.1

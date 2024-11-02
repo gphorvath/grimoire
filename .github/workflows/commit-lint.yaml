@@ -1,0 +1,38 @@
+name: PR Title Commit Lint
+
+on:
+  push:
+    branches:
+    - "!main"
+  pull_request:
+    branches:
+    - "main"
+    types: [opened, edited, synchronize]
+
+concurrency:
+  group: commit-lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  title-check:
+    runs-on: ubuntu-latest
+    name: Validate PR Title
+
+    permissions: read-all
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
+
+    - name: Install commitlint
+      run: npm install --save-dev @commitlint/{config-conventional,cli}
+
+    - name: Lint PR title
+      env:
+        pull_request_title: ${{ github.event.pull_request.title }}
+      run: echo "$pull_request_title" | npx commitlint
