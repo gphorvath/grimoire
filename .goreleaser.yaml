@@ -19,8 +19,11 @@ builds:
 brews:
   - repository:
       owner: gphorvath
-      name: homebrew-tap
+      name: grimoire
       token: "{{ .Env.GITHUB_TOKEN }}"
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
     homepage: https://github.com/gphorvath/grimoire
     description: A prompt engineer's Grimoire to assist with getting the best results from Generative AI prompts
     license: MIT
