@@ -1,13 +1,16 @@
 {
     "version": "0.2",
     "ignorePaths": [
-        "go.mod"
+        "go.mod",
+        "go.sum"
     ],
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
         "atotto",
         "commitlint",
+        "coverprofile",
+        "dylib",
         "gphorvath",
         "Grimoire",
         "Horvath",
