@@ -1,0 +1,60 @@
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    main: ./cmd/grimoire
+    binary: grimoire
+
+archives:
+  - format: binary
+    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+
+changelog:
+  use: github-native
+
+release:
+  github:
+    owner: gphorvath
+    name: grimoire
+  prerelease: auto
+  mode: append
+
+brews:
+  - name: "grimoire@{{ .Version }}"
+    homepage: https://grimoire.cc
+    description: A prompt engineer's Grimoire to assist with getting the best results from Generative AI prompts
+    license: MIT
+    directory: formula
+    test: |
+      system "#{bin}/grimoire --version"
+    install: |
+      bin.install "grimoire"
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+    repository:
+      owner: gphorvath
+      name: grimoire
+      branch: "{{ .ProjectName }}-{{ .Tag }}"
+      token: "{{ .Env.GITHUB_TOKEN }}"
+      pull_request:
+        enabled: true
+        base:
+          branch: main
