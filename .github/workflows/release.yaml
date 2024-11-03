@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - '*'
 
 permissions:
   contents: write
@@ -17,11 +17,11 @@ jobs:
         with:
           fetch-depth: 0
           
-      - uses: actions/setup-go@v4
+      - uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
         with:
           go-version: stable
           
-      - uses: goreleaser/goreleaser-action@v4
+      - uses: goreleaser/goreleaser-action@286f3b13b1b49da4ac219696163fb8c1c93e1200 # v6.0.0
         with:
           distribution: goreleaser
           version: latest
