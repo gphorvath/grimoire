@@ -51,7 +51,7 @@ brews:
     repository:
       owner: gphorvath
       name: grimoire
-      branch: main
+      branch: "{{ .ProjectName }}-{{ .Tag }}"
       token: "{{ .Env.GITHUB_TOKEN }}"
       pull_request:
         enabled: true
