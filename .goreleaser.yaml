@@ -39,7 +39,7 @@ release:
   mode: append
 
 brews:
-  - name: grimoire
+  - name: "grimoire@{{ .Version }}"
     homepage: https://grimoire.cc
     description: A prompt engineer's Grimoire to assist with getting the best results from Generative AI prompts
     license: MIT
@@ -50,7 +50,7 @@ brews:
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
     repository:
       owner: gphorvath
-      name: grimoire
+      name: homebrew-tap
       branch: "{{ .ProjectName }}-{{ .Tag }}"
       token: "{{ .Env.GITHUB_TOKEN }}"
       pull_request:
