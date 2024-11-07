@@ -3,7 +3,6 @@ package cmd
 import (
 	"context"
 
-	"github.com/gphorvath/grimoire/src/cmd/say"
 	"github.com/spf13/cobra"
 )
 
@@ -14,6 +13,5 @@ var rootCmd = &cobra.Command{
 }
 
 func Execute(ctx context.Context) error {
-	rootCmd.AddCommand(say.Command())
 	return rootCmd.Execute()
 }

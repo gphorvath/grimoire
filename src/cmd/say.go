@@ -1,4 +1,4 @@
-package say
+package cmd
 
 import (
 	"fmt"
@@ -6,6 +6,10 @@ import (
 
 	"github.com/spf13/cobra"
 )
+
+func init() {
+	rootCmd.AddCommand(Command())
+}
 
 func Command() *cobra.Command {
 	cmd := &cobra.Command{
@@ -29,7 +33,7 @@ func logo() string {
 │     ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀     │
 │ ╔═══*.·:·.☽✧    ✦☾.·:·.*══╗ │
 │ ║ ⚡         ✴        ⚡  ║ │
-│ ║    Gen AI Companion     ║ │
+│ ║     Gen AI Companion    ║ │
 │ ║     ⚝    Prompt   ⚝     ║ │
 │ ║     ⚝    Prompt   ⚝     ║ │
 │ ║     ⚝    Prompt   ⚝     ║ │
