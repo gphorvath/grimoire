@@ -2,6 +2,7 @@ package say
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -12,8 +13,8 @@ func Command() *cobra.Command {
 		Short: "Print Grimoire logo",
 		Long:  `Print out the Grimoire logo.`,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Println(logo())
-			return nil
+			_, err := fmt.Fprintln(os.Stderr, logo())
+			return err
 		},
 	}
 
