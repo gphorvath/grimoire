@@ -41,7 +41,7 @@ uninstall: ## Uninstall the binary and prompts
 	rm -rf $(LOCAL_DIR)
 	@echo "Done!"
 
-completion: install ## Install shell completion
+completion: ## Install shell completion
 	@echo "Installing completion for $(SHELL_NAME)"
 	@case $(SHELL_NAME) in \
 		bash) \
