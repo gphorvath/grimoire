@@ -22,19 +22,19 @@ type OllamaResponse struct {
 }
 
 var (
-	completeCmd = &cobra.Command{
-		Use:   "complete [prompt]",
-		Short: "Get completion from Ollama",
+	generateCmd = &cobra.Command{
+		Use:   "generate [prompt]",
+		Short: "Get generation from Ollama",
 		Args:  cobra.ExactArgs(1),
-		RunE:  runComplete,
+		RunE:  runGenerate,
 	}
 )
 
 func init() {
-	rootCmd.AddCommand(completeCmd)
+	rootCmd.AddCommand(generateCmd)
 }
 
-func runComplete(cmd *cobra.Command, args []string) error {
+func runGenerate(cmd *cobra.Command, args []string) error {
 	prompt := args[0]
 
 	// Create request body
