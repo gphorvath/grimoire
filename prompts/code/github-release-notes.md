@@ -43,7 +43,6 @@ Please reorganize these release notes for better readability. Follow these guide
 
 Please maintain the original technical details while making the notes more scannable and organized.
 
-[Paste your release notes below this line]
 ---
 
 {{.UserPrompt}}
