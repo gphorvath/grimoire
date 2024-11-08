@@ -5,9 +5,25 @@ import (
 	"path/filepath"
 )
 
-const (
-	GitHubProject = "gphorvath/grimoire"
+var (
+	OllamaModel  = getEnv("OLLAMA_MODEL", "llama3.2")
+	OllamaURL    = getEnv("OLLAMA_URL", "http://localhost:11434/api")
+	OllamaStream = getEnvAsBool("OLLAMA_STREAM", true)
 )
+
+func getEnv(key, defaultValue string) string {
+	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+	return defaultValue
+}
+
+func getEnvAsBool(key string, defaultValue bool) bool {
+	if value, exists := os.LookupEnv(key); exists {
+		return value == "true"
+	}
+	return defaultValue
+}
 
 func GetConfigDir() string {
 	home, err := os.UserHomeDir()
