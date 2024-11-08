@@ -5,6 +5,25 @@ import (
 	"path/filepath"
 )
 
+const (
+	Logo = `
+┌─────────────────────────────┐
+│     ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄     │
+│   ⫷ █ G R I M O I R E █ ⫸   │
+│     ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀     │
+│ ╔═══*.·:·.☽✧    ✦☾.·:·.*══╗ │
+│ ║ ⚡         ✴        ⚡  ║ │
+│ ║     Gen AI Companion    ║ │
+│ ║     ⚝    Prompt   ⚝     ║ │
+│ ║     ⚝    Prompt   ⚝     ║ │
+│ ║     ⚝    Prompt   ⚝     ║ │
+│ ║     ⚝    Prompt   ⚝     ║ │
+│ ║       ☽    ❈    ☾       ║ │
+│ ╚═════*.·:·.☽✧✦☾.·:·.*════╝ │
+└─────────────────────────────┘
+`
+)
+
 var (
 	OllamaModel  = getEnv("OLLAMA_MODEL", "llama3.2")
 	OllamaURL    = getEnv("OLLAMA_URL", "http://localhost:11434/api")

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/gphorvath/grimoire/src/config"
 	"github.com/spf13/cobra"
 )
 
@@ -26,20 +27,5 @@ func Command() *cobra.Command {
 }
 
 func logo() string {
-	return `
-┌─────────────────────────────┐
-│     ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄     │
-│   ⫷ █ G R I M O I R E █ ⫸   │
-│     ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀     │
-│ ╔═══*.·:·.☽✧    ✦☾.·:·.*══╗ │
-│ ║ ⚡         ✴        ⚡  ║ │
-│ ║     Gen AI Companion    ║ │
-│ ║     ⚝    Prompt   ⚝     ║ │
-│ ║     ⚝    Prompt   ⚝     ║ │
-│ ║     ⚝    Prompt   ⚝     ║ │
-│ ║     ⚝    Prompt   ⚝     ║ │
-│ ║       ☽    ❈    ☾       ║ │
-│ ╚═════*.·:·.☽✧✦☾.·:·.*════╝ │
-└─────────────────────────────┘
-`
+	return config.Logo
 }

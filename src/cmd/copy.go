@@ -44,7 +44,6 @@ func runCopyCmd(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	// Copy the contents of the file to the clipboard
 	content, err := os.ReadFile(filePath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
