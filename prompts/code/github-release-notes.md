@@ -1,11 +1,11 @@
 ---
-Metadata:
-- Model: Claude-3.5-Sonnet-200K (or similar capable model)
-- Input: GitHub-style release notes/changelog
-- Output: Formatted, categorized release notes with emojis
-- Version: 0.1.0
-- Last Updated: 2024-11-02
-- Author: [Gregory Horvath / https://github.com/gphorvath]
+Model: Claude-3.5-Sonnet-200K (or similar capable model)
+Input: GitHub-style release notes/changelog
+Output: Formatted, categorized release notes with emojis
+Version: 0.1.0
+Last Updated: 2024-11-02
+Author: Gregory Horvath
+Email: gregory@horvath.ai
 ---
 
 # Release Notes Formatter Prompt
@@ -39,7 +39,10 @@ Please reorganize these release notes for better readability. Follow these guide
    - Any "New Contributors" sections
    - Changelog links
 
+6. The date of this release is {{.Date}}.
+
 Please maintain the original technical details while making the notes more scannable and organized.
 
-[Paste your release notes below this line]
 ---
+
+{{.UserPrompt}}

@@ -11,10 +11,13 @@
         "commitlint",
         "coverprofile",
         "dylib",
+        "esac",
+        "goldmark",
         "gphorvath",
         "Grimoire",
         "Horvath",
         "lycheeignore",
+        "Ollama",
         "trufflehog",
         "trufflesecurity"
     ],
