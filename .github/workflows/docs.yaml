@@ -19,6 +19,7 @@ jobs:
       - name: Generate Documentation
         run: |
           make build
+          mv ./bin/grimoire ./grimoire
           ./grimoire docs
           
       - name: Setup Hugo
