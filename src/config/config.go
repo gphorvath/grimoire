@@ -28,6 +28,7 @@ var (
 	OllamaModel  = getEnv("OLLAMA_MODEL", "llama3.2")
 	OllamaURL    = getEnv("OLLAMA_URL", "http://localhost:11434/api")
 	OllamaStream = getEnvAsBool("OLLAMA_STREAM", true)
+	Editor       = getEnv("EDITOR", "vim")
 )
 
 func getEnv(key, defaultValue string) string {

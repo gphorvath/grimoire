@@ -75,10 +75,7 @@ func createNewFile(filePath string) error {
 }
 
 func openEditor(filePath string) error {
-	editor := os.Getenv("EDITOR")
-	if editor == "" {
-		editor = "vi" // default to vi if EDITOR is not set
-	}
+	editor := config.Editor
 
 	editCmd := exec.Command(editor, filePath)
 	editCmd.Stdin = os.Stdin
