@@ -1,15 +1,15 @@
-## grimoire copy
+## grimoire generate
 
-Copy the prompt to the clipboard
+Get generation from Ollama
 
 ```
-grimoire copy [prompt name] [flags]
+grimoire generate [prompt] [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for copy
+  -h, --help   help for generate
 ```
 
 ### SEE ALSO

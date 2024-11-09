@@ -1,15 +1,15 @@
-## grimoire copy
+## grimoire delete
 
-Copy the prompt to the clipboard
+Delete the prompt
 
 ```
-grimoire copy [prompt name] [flags]
+grimoire delete [prompt name] [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for copy
+  -h, --help   help for delete
 ```
 
 ### SEE ALSO
