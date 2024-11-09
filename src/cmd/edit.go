@@ -70,7 +70,7 @@ func createNewFile(filePath string) error {
 	}
 	defer file.Close()
 
-	_, err = file.WriteString("A new prompt!")
+	_, err = file.WriteString(config.ExamplePrompt)
 	return err
 }
 
