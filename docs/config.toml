@@ -1,11 +1,37 @@
-baseURL = 'https://grimoire.cc/'
+baseURL = 'https://gphorvath.github.io/grimoire/'
 languageCode = 'en-us'
-title = 'Grimoire - AI Prompt Management CLI'
+title = 'Grimoire - Prompt Engineering Assistant'
+theme = 'hugo-book'
 
+# Show all pages in left sidebar
 [params]
-  description = "A prompt engineer's Grimoire to assist with getting the best results from Generative AI prompts"
+  # Book theme parameters
+  BookTheme = 'dark'
+  BookToC = true
+  # Remove or comment out BookSection to show all content
+  # BookSection = 'docs'
+  BookRepo = 'https://github.com/gphorvath/grimoire'
+  BookEditPath = 'edit/main/docs'
+  
+  # Show all files in the menu
+  BookMenuBundle = '/menu'
+  # Set to true to show all hidden pages
+  BookShowHidden = true
 
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+# Configure the menu
+[menu]
+  # This will show all pages in the sidebar
+  [[menu.before]]
+    name = "GitHub"
+    url = "https://github.com/gphorvath/grimoire"
+    weight = 10
+
+# Enable all files to be included in menu
+[markup.tableOfContents]
+  startLevel = 1
+  endLevel = 4
+
+# Configure content browsing
+[taxonomies]
+  category = "categories"
+  tag = "tags"
