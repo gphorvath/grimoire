@@ -24,10 +24,26 @@ const (
 `
 )
 
+const ExamplePrompt = `---
+title: Example Prompt
+model: gpt-3.5-turbo
+description: This is an example prompt
+input: Example or description of how this prompt should be used.
+output: Example or description of expected output
+version: 0.1.0
+updated: 2024-11-09
+author: John Doe
+email: example@example.com
+tags:
+  - example
+---
+This is an example prompt.`
+
 var (
 	OllamaModel  = getEnv("OLLAMA_MODEL", "llama3.2")
 	OllamaURL    = getEnv("OLLAMA_URL", "http://localhost:11434/api")
 	OllamaStream = getEnvAsBool("OLLAMA_STREAM", true)
+	Editor       = getEnv("EDITOR", "vim")
 )
 
 func getEnv(key, defaultValue string) string {

@@ -70,15 +70,12 @@ func createNewFile(filePath string) error {
 	}
 	defer file.Close()
 
-	_, err = file.WriteString("A new prompt!")
+	_, err = file.WriteString(config.ExamplePrompt)
 	return err
 }
 
 func openEditor(filePath string) error {
-	editor := os.Getenv("EDITOR")
-	if editor == "" {
-		editor = "vi" // default to vi if EDITOR is not set
-	}
+	editor := config.Editor
 
 	editCmd := exec.Command(editor, filePath)
 	editCmd.Stdin = os.Stdin
