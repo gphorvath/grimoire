@@ -1,11 +1,14 @@
 ---
-Model: Claude-3.5-Sonnet-200K (or similar capable model)
-Input: GitHub-style release notes/changelog
-Output: Formatted, categorized release notes with emojis
-Version: 0.1.0
-Last Updated: 2024-11-02
-Author: Gregory Horvath
-Email: gregory@horvath.ai
+model: Claude-3.5-Sonnet-200K (or similar capable model)
+input: GitHub-style release notes/changelog
+output: Formatted, categorized release notes with emojis
+version: 0.1.0
+updated: 2024-11-02
+author: Gregory Horvath
+email: gregory@horvath.ai
+tags:
+   - code
+   - review
 ---
 
 # Release Notes Formatter Prompt
