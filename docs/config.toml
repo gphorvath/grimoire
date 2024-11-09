@@ -1,0 +1,11 @@
+baseURL = 'https://grimoire.cc/'
+languageCode = 'en-us'
+title = 'Grimoire - AI Prompt Management CLI'
+
+[params]
+  description = "A prompt engineer's Grimoire to assist with getting the best results from Generative AI prompts"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
