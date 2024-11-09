@@ -9,9 +9,11 @@
     "words": [
         "atotto",
         "autoload",
+        "CACHEDIR",
         "commitlint",
         "compinit",
         "coverprofile",
+        "dpkg",
         "dylib",
         "esac",
         "fpath",
