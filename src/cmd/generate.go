@@ -29,8 +29,8 @@ var (
 
 	generateCmd = &cobra.Command{
 		Use:   "generate [flags] [input...]",
-		Short: "Get generation from Ollama.",
-		Long:  "Requests generation from Ollama while optionally prepending a prompt.",
+		Short: "Get generation from Ollama",
+		Long:  "Requests generation from Ollama while optionally prepending a prompt",
 		Args:  cobra.MinimumNArgs(1),
 		RunE:  runGenerate,
 	}
