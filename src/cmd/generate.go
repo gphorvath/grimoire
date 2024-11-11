@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/gphorvath/grimoire/src/config"
 	"github.com/spf13/cobra"
@@ -22,25 +25,56 @@ type OllamaResponse struct {
 }
 
 var (
+	promptFile string
+
 	generateCmd = &cobra.Command{
-		Use:   "generate [prompt]",
-		Short: "Get generation from Ollama",
-		Args:  cobra.ExactArgs(1),
+		Use:   "generate [flags] [input...]",
+		Short: "Get generation from Ollama.",
+		Long:  "Requests generation from Ollama while optionally prepending a prompt.",
+		Args:  cobra.MinimumNArgs(1),
 		RunE:  runGenerate,
 	}
 )
 
 func init() {
 	rootCmd.AddCommand(generateCmd)
+	generateCmd.Flags().StringVarP(&promptFile, "prompt", "p", "", "Prompt file to prepend to input")
 }
 
 func runGenerate(cmd *cobra.Command, args []string) error {
-	prompt := args[0]
+	// Join all arguments as the input text
+	input := strings.Join(args, " ")
+	var finalPrompt string
+
+	if promptFile != "" {
+		// Load the prompt file if specified
+		baseDir := config.GetPromptDir()
+		filename := promptFile + ".md"
+
+		dir, err := findFileDir(baseDir, filename)
+		if err != nil {
+			return err
+		}
+
+		if dir == "" {
+			return fmt.Errorf("prompt not found")
+		}
+
+		filePath := filepath.Join(dir, filename)
+		content, err := os.ReadFile(filePath)
+		if err != nil {
+			return err
+		}
+
+		finalPrompt = string(content) + "\n" + input
+	} else {
+		finalPrompt = input
+	}
 
 	// Create request body
 	reqBody := OllamaRequest{
 		Model:  config.OllamaModel,
-		Prompt: prompt,
+		Prompt: finalPrompt,
 		Stream: config.OllamaStream,
 	}
 

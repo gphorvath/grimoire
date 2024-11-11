@@ -40,7 +40,7 @@ tags:
 This is an example prompt.`
 
 var (
-	OllamaModel  = getEnv("OLLAMA_MODEL", "llama3.2")
+	OllamaModel  = getEnv("OLLAMA_MODEL", "llama3")
 	OllamaURL    = getEnv("OLLAMA_URL", "http://localhost:11434/api")
 	OllamaStream = getEnvAsBool("OLLAMA_STREAM", true)
 	Editor       = getEnv("EDITOR", "vim")
