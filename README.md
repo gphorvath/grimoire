@@ -7,7 +7,7 @@ A prompt engineer's ***Grimoire*** to assist with getting the best results from 
 ## Features
 
 - **Prompt Management**: Easily manage and organize your prompts.
-- **Clipboard Integration**: Seamlessly copy and paste prompts using the clipboard service.
+- **Clipboard Integration**: Seamlessly copy and paste prompts to the clipboard.
 - **Command Line Interface**: Interact with Grimoire through a user-friendly CLI.
 - **Ollama Integration**: Generate text using AI models with Ollama's local LLM integration.
 
