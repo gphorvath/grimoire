@@ -26,7 +26,7 @@ func runEditCmd(cmd *cobra.Command, args []string) {
 	filename := args[0] + ".md"
 
 	// Try to find existing file
-	filePath, err := common.FindFile(baseDir, filename)
+	filePath, err := common.FindAndJoin(baseDir, filename)
 	if err != nil && !os.IsNotExist(err) {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
@@ -35,7 +35,7 @@ func runEditCmd(cmd *cobra.Command, args []string) {
 	// If file doesn't exist, create it in the base directory
 	if filePath == "" {
 		filePath = filepath.Join(baseDir, filename)
-		if err := common.CreateFileIfNotExists(filePath); err != nil {
+		if err := common.CreateIfNotExists(filePath); err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 			os.Exit(1)
 		}
@@ -47,7 +47,7 @@ func runEditCmd(cmd *cobra.Command, args []string) {
 		fmt.Printf("Created new prompt file %s\n", filePath)
 	}
 
-	if err := common.OpenFileInEditor(filePath); err != nil {
+	if err := common.OpenInEditor(filePath); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
 	}

@@ -7,11 +7,9 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/gphorvath/grimoire/src/cmd/common"
-
 	"github.com/gphorvath/grimoire/src/config"
 	"github.com/spf13/cobra"
 )
@@ -27,22 +25,29 @@ type OllamaResponse struct {
 }
 
 var (
-	promptFile string
+	promptFile         string
+	editBeforeGenerate bool
 
 	generateCmd = &cobra.Command{
 		Use:   "generate [flags] [input...]",
 		Short: "Get generation from Ollama",
 		Long:  "Requests generation from Ollama while optionally prepending a prompt",
-		Args:  cobra.MinimumNArgs(1),
-		RunE:  runGenerate,
+		Args: func(cmd *cobra.Command, args []string) error {
+			editFlag, _ := cmd.Flags().GetBool("edit")
+			if !editFlag && len(args) < 1 {
+				return fmt.Errorf("requires at least 1 arg when not using edit flag")
+			}
+			return nil
+		},
+		RunE: runGenerate,
 	}
 )
 
 func init() {
 	rootCmd.AddCommand(generateCmd)
 	generateCmd.Flags().StringVarP(&promptFile, "prompt", "p", "", "Prompt file to prepend to input")
+	generateCmd.Flags().BoolVarP(&editBeforeGenerate, "edit", "e", false, "Edit input before generating")
 }
-
 func runGenerate(cmd *cobra.Command, args []string) error {
 	// Join all arguments as the input text
 	input := strings.Join(args, " ")
@@ -53,17 +58,12 @@ func runGenerate(cmd *cobra.Command, args []string) error {
 		baseDir := config.GetPromptDir()
 		filename := promptFile + ".md"
 
-		dir, err := common.FindFile(baseDir, filename)
+		filepath, err := common.FindAndJoin(baseDir, filename)
 		if err != nil {
 			return err
 		}
 
-		if dir == "" {
-			return fmt.Errorf("prompt not found")
-		}
-
-		filePath := filepath.Join(dir, filename)
-		content, err := os.ReadFile(filePath)
+		content, err := os.ReadFile(filepath)
 		if err != nil {
 			return err
 		}
@@ -71,6 +71,33 @@ func runGenerate(cmd *cobra.Command, args []string) error {
 		finalPrompt = string(content) + "\n" + input
 	} else {
 		finalPrompt = input
+	}
+
+	if editBeforeGenerate {
+		// Create temporary file for editing
+		tmpFile, err := os.CreateTemp("", "grimoire-*.txt")
+		if err != nil {
+			return err
+		}
+		defer os.Remove(tmpFile.Name())
+
+		// Write prompt to temp file
+		if _, err := tmpFile.WriteString(finalPrompt); err != nil {
+			return err
+		}
+		tmpFile.Close()
+
+		// Open in editor
+		if err := common.OpenInEditor(tmpFile.Name()); err != nil {
+			return err
+		}
+
+		// Read back edited content
+		content, err := os.ReadFile(tmpFile.Name())
+		if err != nil {
+			return err
+		}
+		finalPrompt = string(content)
 	}
 
 	// Create request body

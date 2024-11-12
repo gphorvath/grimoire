@@ -9,14 +9,17 @@ import (
 	"github.com/gphorvath/grimoire/src/config"
 )
 
+// FileExists reports if a file exists
 func FileExists(path string) bool {
 	_, err := os.Stat(path)
 	return !os.IsNotExist(err)
 }
 
-func CreateFileIfNotExists(path string) error {
-	if !FileExists(path) {
-		file, err := os.Create(path)
+// CreateIfNotExists creates a file if it does not exist
+// and returns an error if it fails to create the file
+func CreateIfNotExists(filePath string) error {
+	if !FileExists(filePath) {
+		file, err := os.Create(filePath)
 		if err != nil {
 			return err
 		}
@@ -25,7 +28,10 @@ func CreateFileIfNotExists(path string) error {
 	return nil
 }
 
-func FindFile(baseDir, filename string) (string, error) {
+// FindAndJoin walks the directory tree rooted at baseDir
+// and returns the path of the first file with the given filename
+// and an error if the file is not found
+func FindAndJoin(baseDir, filename string) (string, error) {
 	var foundPath string
 	err := filepath.Walk(baseDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -46,7 +52,9 @@ func FindFile(baseDir, filename string) (string, error) {
 	return foundPath, nil
 }
 
-func OpenFileInEditor(path string) error {
+// OpenInEditor opens a file in the configured editor
+// and returns an error if it fails to open the file
+func OpenInEditor(path string) error {
 	if !FileExists(path) {
 		return errors.New("file does not exist")
 	}
