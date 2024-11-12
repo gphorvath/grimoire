@@ -1,2 +1,5 @@
 github\.com/private-org/.*
 file.*/issues
+localhost:\d+/.*
+http://localhost:\d+/.*
+https://localhost:\d+/.*

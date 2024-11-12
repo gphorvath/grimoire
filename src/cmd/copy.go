@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 
+	"github.com/gphorvath/grimoire/src/cmd/common"
 	"github.com/gphorvath/grimoire/src/config"
 	"github.com/spf13/cobra"
 	"golang.design/x/clipboard"
@@ -24,19 +24,11 @@ func init() {
 func runCopyCmd(cmd *cobra.Command, args []string) {
 	baseDir := config.GetPromptDir()
 	filename := args[0] + ".md"
-
-	dir, err := findFileDir(baseDir, filename)
+	filePath, err := common.FindAndJoin(baseDir, filename)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
 	}
-
-	if dir == "" {
-		fmt.Fprintf(os.Stderr, "Error: prompt not found\n")
-		os.Exit(1)
-	}
-
-	filePath := filepath.Join(dir, filename)
 
 	// Init returns an error if the package is not ready for use.
 	err = clipboard.Init()
