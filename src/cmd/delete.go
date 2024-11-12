@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/gphorvath/grimoire/src/cmd/common"
 	"github.com/gphorvath/grimoire/src/config"
 	"github.com/spf13/cobra"
 )
@@ -24,7 +25,7 @@ func runDeleteCmd(cmd *cobra.Command, args []string) {
 	baseDir := config.GetPromptDir()
 	filename := args[0] + ".md"
 
-	dir, err := findFileDir(baseDir, filename)
+	dir, err := common.FindFile(baseDir, filename)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)

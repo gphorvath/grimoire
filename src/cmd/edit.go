@@ -3,9 +3,9 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 
+	"github.com/gphorvath/grimoire/src/cmd/common"
 	"github.com/gphorvath/grimoire/src/config"
 	"github.com/spf13/cobra"
 )
@@ -25,62 +25,30 @@ func runEditCmd(cmd *cobra.Command, args []string) {
 	baseDir := config.GetPromptDir()
 	filename := args[0] + ".md"
 
-	dir, err := findFileDir(baseDir, filename)
-	if err != nil {
+	// Try to find existing file
+	filePath, err := common.FindFile(baseDir, filename)
+	if err != nil && !os.IsNotExist(err) {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
 	}
 
-	if dir == "" {
-		dir = baseDir
-		filePath := filepath.Join(dir, filename)
-		if err := createNewFile(filePath); err != nil {
+	// If file doesn't exist, create it in the base directory
+	if filePath == "" {
+		filePath = filepath.Join(baseDir, filename)
+		if err := common.CreateFileIfNotExists(filePath); err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+			os.Exit(1)
+		}
+		// Write example prompt to the new file
+		if err := os.WriteFile(filePath, []byte(config.ExamplePrompt), 0644); err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 			os.Exit(1)
 		}
 		fmt.Printf("Created new prompt file %s\n", filePath)
 	}
 
-	filePath := filepath.Join(dir, filename)
-	if err := openEditor(filePath); err != nil {
+	if err := common.OpenFileInEditor(filePath); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
 	}
-}
-
-func findFileDir(baseDir, filename string) (string, error) {
-	var dir string
-	err := filepath.Walk(baseDir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if !info.IsDir() && info.Name() == filename {
-			dir = filepath.Dir(path)
-			return filepath.SkipDir
-		}
-		return nil
-	})
-	return dir, err
-}
-
-func createNewFile(filePath string) error {
-	file, err := os.Create(filePath)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	_, err = file.WriteString(config.ExamplePrompt)
-	return err
-}
-
-func openEditor(filePath string) error {
-	editor := config.Editor
-
-	editCmd := exec.Command(editor, filePath)
-	editCmd.Stdin = os.Stdin
-	editCmd.Stdout = os.Stdout
-	editCmd.Stderr = os.Stderr
-
-	return editCmd.Run()
 }

@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/gphorvath/grimoire/src/cmd/common"
+
 	"github.com/gphorvath/grimoire/src/config"
 	"github.com/spf13/cobra"
 )
@@ -51,7 +53,7 @@ func runGenerate(cmd *cobra.Command, args []string) error {
 		baseDir := config.GetPromptDir()
 		filename := promptFile + ".md"
 
-		dir, err := findFileDir(baseDir, filename)
+		dir, err := common.FindFile(baseDir, filename)
 		if err != nil {
 			return err
 		}

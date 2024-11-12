@@ -39,11 +39,13 @@ tags:
 ---
 This is an example prompt.`
 
+const EnvPrefix string = "GRIMOIRE"
+
 var (
-	OllamaModel  = getEnv("OLLAMA_MODEL", "llama3")
-	OllamaURL    = getEnv("OLLAMA_URL", "http://localhost:11434/api")
-	OllamaStream = getEnvAsBool("OLLAMA_STREAM", true)
-	Editor       = getEnv("EDITOR", "vim")
+	OllamaModel  string = getEnv(EnvPrefix+"_OLLAMA_MODEL", "llama3")
+	OllamaURL    string = getEnv(EnvPrefix+"_OLLAMA_URL", "http://localhost:11434/api")
+	OllamaStream bool   = getEnvAsBool(EnvPrefix+"_OLLAMA_STREAM", true)
+	Editor       string = getEnv(EnvPrefix+"_EDITOR", "vim")
 )
 
 func getEnv(key, defaultValue string) string {
