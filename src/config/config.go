@@ -39,28 +39,9 @@ tags:
 ---
 This is an example prompt.`
 
-const EnvPrefix string = "GRIMOIRE"
-
 var (
-	OllamaModel  string = getEnv(EnvPrefix+"_OLLAMA_MODEL", "llama3")
-	OllamaURL    string = getEnv(EnvPrefix+"_OLLAMA_URL", "http://localhost:11434/api")
-	OllamaStream bool   = getEnvAsBool(EnvPrefix+"_OLLAMA_STREAM", true)
-	Editor       string = getEnv(EnvPrefix+"_EDITOR", "vim")
+	Editor string = getEnvAsString("EDITOR", "vim")
 )
-
-func getEnv(key, defaultValue string) string {
-	if value, exists := os.LookupEnv(key); exists {
-		return value
-	}
-	return defaultValue
-}
-
-func getEnvAsBool(key string, defaultValue bool) bool {
-	if value, exists := os.LookupEnv(key); exists {
-		return value == "true"
-	}
-	return defaultValue
-}
 
 func GetConfigDir() string {
 	home, err := os.UserHomeDir()

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 
@@ -100,11 +101,13 @@ func runGenerate(cmd *cobra.Command, args []string) error {
 		finalPrompt = string(content)
 	}
 
+	cfg := config.NewClientConfig()
+
 	// Create request body
 	reqBody := OllamaRequest{
-		Model:  config.OllamaModel,
+		Model:  cfg.OllamaConfig.Model,
 		Prompt: finalPrompt,
-		Stream: config.OllamaStream,
+		Stream: cfg.OllamaConfig.Stream,
 	}
 
 	jsonData, err := json.Marshal(reqBody)
@@ -112,10 +115,15 @@ func runGenerate(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	url := config.OllamaURL + "/generate"
+	endpoint := "/api/generate"
+
+	ollamaURL, err := url.JoinPath(cfg.OllamaConfig.Host, endpoint)
+	if err != nil {
+		return err
+	}
 
 	// Make POST request to Ollama API
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonData))
+	resp, err := http.Post(ollamaURL, "application/json", bytes.NewBuffer(jsonData))
 	if err != nil {
 		return err
 	}
