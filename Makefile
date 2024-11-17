@@ -60,6 +60,10 @@ completion: ## Install shell completion
 	@echo "Installed completion for $(SHELL_NAME)"
 	@echo "Restart your shell or source the completion file to use it"
 
+test: ## Run tests
+	@echo "Running tests..."
+	go test -v ./...
+
 clean: ## Clean build files
 	@echo "Cleaning..."
 	go clean
